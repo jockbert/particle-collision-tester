@@ -1,0 +1,25 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
+
+repositories {
+    mavenCentral()
+    maven { url "https://jitpack.io" }
+}
+
+dependencies {
+
+    // Implementations to be tested
+    compile 'com.github.mevensson:optimal-particle-simulation:master-SNAPSHOT'
+    compile 'com.github.jockbert:fritz-particle-simulation:master-SNAPSHOT'
+    
+    testCompile 'junit:junit:+'
+    testCompile 'org.javatuples:javatuples:+'
+
+    // For more info in Quick Theories, see https://github.com/ncredinburgh/QuickTheories
+    testCompile 'org.quicktheories:quicktheories:0.2+'
+    testCompile 'org.quicktheories:quicktheories:0.2+:sources'
+    testCompile 'org.quicktheories:quicktheories:0.2+:javadoc'
+}
