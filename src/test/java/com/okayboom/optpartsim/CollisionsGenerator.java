@@ -122,7 +122,7 @@ public class CollisionsGenerator implements WithQuickTheories {
 			.collect(Collectors.joining("\n\t", "{\n\t", "\n}"));
 	}
 
-	/* Negate radians, i.e. add half rotation. */
+	/** Negate radians, i.e. add half rotation. */
 	double radNeg(double rad) {
 		return rad + Math.PI;
 	}

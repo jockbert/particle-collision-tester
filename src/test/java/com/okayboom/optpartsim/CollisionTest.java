@@ -37,6 +37,7 @@ public class CollisionTest implements WithQuickTheories {
 		});
 	}
 
+	/** Convert to particle of Mevensson-type. */
 	eu.evensson.optpartsim.physics.Particle toMevenssonParticle(P p) {
 		return new eu.evensson.optpartsim.physics.Particle(1, 0, p.pos, p.vel);
 	}
@@ -51,6 +52,7 @@ public class CollisionTest implements WithQuickTheories {
 			toJockbertParticle(collision.beta)));
 	}
 
+	/** Convert to particle of Jockbert-type. */
 	com.kastrull.fritz.primitives.Particle toJockbertParticle(P p) {
 		Coord pos = Coord.c(p.pos.x(), p.pos.y());
 		Coord vel = Coord.c(p.vel.x(), p.vel.y());
@@ -80,6 +82,10 @@ public class CollisionTest implements WithQuickTheories {
 		return od.isPresent() ? Optional.of(od.getAsDouble()) : Optional.empty();
 	}
 
+	/**
+	 * Asserts that collision function classifies the collision correctly or a
+	 * series of different (randomly generated) test cases.
+	 */
 	void assertCollisions(Function<Collision, Optional<Double>> collisionTimeFn) {
 		CollisionsGenerator generator = new CollisionsGenerator();
 
