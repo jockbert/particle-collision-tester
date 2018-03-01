@@ -14,6 +14,7 @@ dependencies {
     // Implementations to be tested
     compile 'com.github.mevensson:optimal-particle-simulation:master-SNAPSHOT'
     compile 'com.github.jockbert:fritz-particle-simulation:master-SNAPSHOT'
+    compile 'com.github.lytharn:particles:status-SNAPSHOT'
     
     testCompile 'junit:junit:+'
     testCompile 'org.javatuples:javatuples:+'

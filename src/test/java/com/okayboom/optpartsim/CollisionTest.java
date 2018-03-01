@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Optional;
+import java.util.OptionalDouble;
 import java.util.function.Function;
 
 import org.junit.Test;
@@ -14,6 +15,10 @@ import com.kastrull.fritz.physics.Physics;
 import com.kastrull.fritz.primitives.Coord;
 import com.okayboom.optpartsim.CollisionsGenerator.Collision;
 import com.okayboom.optpartsim.CollisionsGenerator.P;
+
+import lytharn.particles.main.CollisionDetector;
+import lytharn.particles.main.Particle;
+import lytharn.particles.main.Vector2D;
 
 /** Test class for different implementations of collision detection. */
 public class CollisionTest implements WithQuickTheories {
@@ -50,6 +55,29 @@ public class CollisionTest implements WithQuickTheories {
 		Coord pos = Coord.c(p.pos.x(), p.pos.y());
 		Coord vel = Coord.c(p.vel.x(), p.vel.y());
 		return new com.kastrull.fritz.primitives.Particle(pos, vel);
+	}
+
+	@Test
+	public void collisionDetectionLytharn() {
+		assertCollisions(collision -> {
+			Particle a = toLytharnParticle(collision.alfa);
+			Particle b = toLytharnParticle(collision.beta);
+
+			OptionalDouble result = CollisionDetector.timeToCollision(a, b);
+			return convertOptional(result);
+		});
+	}
+
+	/** Convert to particle of Lytharn-type. */
+	lytharn.particles.main.Particle toLytharnParticle(P alfa) {
+		Vector2D position = new Vector2D(alfa.pos.x(), alfa.pos.y());
+		Vector2D velocity = new Vector2D(alfa.vel.x(), alfa.vel.y());
+		double radius = 1.0;
+		return new lytharn.particles.main.Particle(position, velocity, radius);
+	}
+
+	private static Optional<Double> convertOptional(OptionalDouble od) {
+		return od.isPresent() ? Optional.of(od.getAsDouble()) : Optional.empty();
 	}
 
 	void assertCollisions(Function<Collision, Optional<Double>> collisionTimeFn) {
